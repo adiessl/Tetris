@@ -1,22 +1,26 @@
-function Stack(columns, rows) {
-  this.columns = columns;
-  this.rows = rows;
-  this.matrix = [];
+class Stack {
 
-  this.initialize = function () {
-    for (var row = 0; row < this.rows; row++) {
+  constructor(columns, rows) {
+    this.columns = columns;
+    this.rows = rows;
+    this.matrix = [];
+    this.initialize();
+  }
+
+  initialize() {
+    for (let row = 0; row < this.rows; row++) {
       this.addRow();
     }
   }
 
-  this.add = function (tile) {
-    var x = tile.x;
-    var y = tile.y;
-    var blocks = tile.blocks;
-    for (var i = 0, ii = blocks.length; i < ii; i++) {
-      var block = blocks[i];
-      yValue = y + block.offsetY;
-      xValue = x + block.offsetX;
+  add(tile) {
+    const x = tile.x;
+    const y = tile.y;
+    const blocks = tile.blocks;
+    for (let i = 0, ii = blocks.length; i < ii; i++) {
+      const block = blocks[i];
+      const yValue = y + block.offsetY;
+      const xValue = x + block.offsetX;
 
       if (yValue <= 0) {
         GameOver();
@@ -28,11 +32,11 @@ function Stack(columns, rows) {
     this.removeFullRows();
   }
 
-  this.draw = function (edgeLength, offsetX, offsetY) {
-    for (var rowNumber = 0; rowNumber < this.rows; rowNumber++) {
-      var row = this.matrix[rowNumber];
-      for (var colNumber = 0; colNumber < this.columns; colNumber++) {        
-        var block = row[colNumber];
+  draw(edgeLength, offsetX, offsetY) {
+    for (let rowNumber = 0; rowNumber < this.rows; rowNumber++) {
+      const row = this.matrix[rowNumber];
+      for (let colNumber = 0; colNumber < this.columns; colNumber++) {
+        const block = row[colNumber];
         if (block instanceof Block) {
           block.draw(colNumber, rowNumber, edgeLength, offsetX, offsetY)
         }
@@ -40,13 +44,13 @@ function Stack(columns, rows) {
     }
   }
 
-  this.removeFullRows = function () {
-    var removedRowCount = 0;
-    for (var i = 0; i < this.rows; i++) {
-      var row = this.matrix[i];      
-      var fullRow = true;
-      for (var j = 0; j < this.columns; j++) {
-        var element = row[j];
+  removeFullRows() {
+    let removedRowCount = 0;
+    for (let i = 0; i < this.rows; i++) {
+      const row = this.matrix[i];
+      let fullRow = true;
+      for (let j = 0; j < this.columns; j++) {
+        const element = row[j];
         if (!(element instanceof Block)) {
           fullRow = false;
           break;
@@ -61,13 +65,13 @@ function Stack(columns, rows) {
     AddToScore(removedRowCount);
   }
 
-  this.addRow = function () {
-    var row = [];
+  addRow() {
+    const row = [];
     row.length = this.columns;
-    this.matrix.unshift(row);    
+    this.matrix.unshift(row);
   }
 
-  this.isOccupied = function(rowNumber, colNumber){    
+  isOccupied(rowNumber, colNumber) {
     if (rowNumber >= this.rows) {
       return true;
     } else if (rowNumber < 0) {
@@ -77,9 +81,7 @@ function Stack(columns, rows) {
     if (colNumber < 0 || colNumber >= this.columns) {
       return true;
     }
-  
-    return this.matrix[rowNumber][colNumber] instanceof Block;    
-  }
 
-  this.initialize();
+    return this.matrix[rowNumber][colNumber] instanceof Block;
+  }
 }

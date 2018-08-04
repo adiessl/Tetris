@@ -8,40 +8,40 @@
  * – display timer
  */
 
-var basePixelSize = 20;
-var borderSize = basePixelSize * 1.5;
-var columns = 18;
-var rows = 20;
-var sideMenuWidth = 5 * basePixelSize;
-var nextTileHeight = 6 * basePixelSize;
-var gameAreaWidth = columns * basePixelSize + 1;
-var gameAreaHeight = rows * basePixelSize + 1;
-var canvasWidth = borderSize + gameAreaWidth + borderSize + sideMenuWidth + borderSize;
-var canvasHeight = borderSize + gameAreaHeight + borderSize;
-var hintAreaHeight = gameAreaHeight - nextTileHeight - borderSize;
-var tile;
-var nextTile;
-var nextTileOffsetX = gameAreaWidth + 2 * borderSize + sideMenuWidth / 2 - basePixelSize / 2;
-var nextTileOffsetY = borderSize + 4 * basePixelSize;
-var stack;
-var speed;
-var level;
-var score;
-var levelScore;
-var levelThreshold = 2500;
-var highscore = 0;
-var paused = false;
-var gameOver = false;
-var shapeGenerator;
-var textLineHeight = basePixelSize;
-var textPadding = basePixelSize / 2;
-var textLeftAlign = canvasWidth - borderSize - sideMenuWidth + textPadding;
-var textRightAlign = canvasWidth - borderSize - textPadding;
-var textTopStart = borderSize + 2 * textPadding;
-var textBottomStart = 2 * borderSize + nextTileHeight + 2 * textPadding;
-var verticalBorderLength = canvasHeight - 2 * borderSize;
-var textSizeSmall = Math.floor(basePixelSize * 0.6)
-var textSizeBig = Math.floor(basePixelSize * 0.8)
+const basePixelSize = 20;
+const borderSize = basePixelSize * 1.5;
+const columns = 18;
+const rows = 20;
+const sideMenuWidth = 5 * basePixelSize;
+const nextTileHeight = 6 * basePixelSize;
+const gameAreaWidth = columns * basePixelSize + 1;
+const gameAreaHeight = rows * basePixelSize + 1;
+const canvasWidth = borderSize + gameAreaWidth + borderSize + sideMenuWidth + borderSize;
+const canvasHeight = borderSize + gameAreaHeight + borderSize;
+const hintAreaHeight = gameAreaHeight - nextTileHeight - borderSize;
+let tile;
+let nextTile;
+const nextTileOffsetX = gameAreaWidth + 2 * borderSize + sideMenuWidth / 2 - basePixelSize / 2;
+const nextTileOffsetY = borderSize + 4 * basePixelSize;
+let stack;
+let speed;
+let level;
+let score;
+let levelScore;
+const levelThreshold = 2500;
+let highscore = 0;
+let paused = false;
+let gameOver = false;
+let shapeGenerator;
+const textLineHeight = basePixelSize;
+const textPadding = basePixelSize / 2;
+const textLeftAlign = canvasWidth - borderSize - sideMenuWidth + textPadding;
+const textRightAlign = canvasWidth - borderSize - textPadding;
+const textTopStart = borderSize + 2 * textPadding;
+const textBottomStart = 2 * borderSize + nextTileHeight + 2 * textPadding;
+const verticalBorderLength = canvasHeight - 2 * borderSize;
+const textSizeSmall = Math.floor(basePixelSize * 0.6)
+const textSizeBig = Math.floor(basePixelSize * 0.8)
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -137,7 +137,7 @@ function Restart() {
 }
 
 function AddToScore(removedRowCount) {
-  var plus = level * removedRowCount * (removedRowCount + 1) * 50;
+  const plus = level * removedRowCount * (removedRowCount + 1) * 50;
   score += plus;
   levelScore += plus;
   if (score > highscore) {
@@ -158,7 +158,7 @@ function GameOver() {
 function DrawMessage(message, hint) {
   textSize(textSizeBig);
   textAlign(CENTER, CENTER);
-  var w = Math.max(textWidth(message), textWidth(hint)) + borderSize;
+  const w = Math.max(textWidth(message), textWidth(hint)) + borderSize;
 
   fill('rgba(100,100,100, 0.8)');
   noStroke();
@@ -174,7 +174,7 @@ function DrawTexts() {
   textSize(textSizeSmall);
   textLeading(textLineHeight);
 
-  var texts = [
+  const texts = [
     {
       left: 'Level:',
       right: level
@@ -199,8 +199,8 @@ function DrawTexts() {
     }
   ];
 
-  var leftText = '';
-  var rightText = '';
+  let leftText = '';
+  let rightText = '';
 
   texts.forEach(function (element) {
     leftText += element.left + '\n';

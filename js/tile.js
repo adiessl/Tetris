@@ -1,20 +1,23 @@
-function Tile(x, y, blocks) {
-  this.x = x;
-  this.y = y;
-  this.blocks = blocks;
+class Tile {
 
-  this.setCoordinates = function (x, y) {
+  constructor(x, y, blocks) {
+    this.x = x;
+    this.y = y;
+    this.blocks = blocks;
+  }
+
+  setCoordinates(x, y) {
     this.x = x;
     this.y = y;
   }
 
-  this.draw = function (edgeLength, offsetX, offsetY) {    
-    for (var i = 0, ii = this.blocks.length; i < ii; i++) {
+  draw(edgeLength, offsetX, offsetY) {
+    for (let i = 0, ii = this.blocks.length; i < ii; i++) {
       this.blocks[i].draw(this.x, this.y, edgeLength, offsetX, offsetY);
     }
   }
 
-  this.moveDown = function (stack) {
+  moveDown(stack) {
     if (this.blocks.every(function (block) {
       return block.canMoveDown(this.x, this.y, stack);
     }, this)) {
@@ -25,7 +28,7 @@ function Tile(x, y, blocks) {
     }
   }
 
-  this.moveLeft = function (stack) {
+  moveLeft(stack) {
     if (this.blocks.every(function (block) {
       return block.canMoveLeft(this.x, this.y, stack);
     }, this)) {
@@ -33,7 +36,7 @@ function Tile(x, y, blocks) {
     }
   }
 
-  this.moveRight = function (stack) {
+  moveRight(stack) {
     if (this.blocks.every(function (block) {
       return block.canMoveRight(this.x, this.y, stack);
     }, this)) {
@@ -41,15 +44,15 @@ function Tile(x, y, blocks) {
     }
   }
 
-  this.rotateClockwise = function () {
+  rotateClockwise() {
     if (this.blocks.every(function (block) {
       return block.canRotateClockwise(this.x, this.y, stack);
     }, this)) {
-     this.rotate(1);
+      this.rotate(1);
     }
   }
 
-  this.rotateCounterClockwise = function () {
+  rotateCounterClockwise() {
     if (this.blocks.every(function (block) {
       return block.canRotateCounterClockwise(this.x, this.y, stack);
     }, this)) {
@@ -57,10 +60,10 @@ function Tile(x, y, blocks) {
     }
   }
 
-  this.rotate = function (direction) {
-    for (var i = 0, ii = this.blocks.length; i < ii; i++) {
-      var block = this.blocks[i];
-      var temp = block.offsetX;
+  rotate(direction) {
+    for (let i = 0, ii = this.blocks.length; i < ii; i++) {
+      const block = this.blocks[i];
+      const temp = block.offsetX;
       block.offsetX = -direction * block.offsetY;
       block.offsetY = direction * temp;
     }
